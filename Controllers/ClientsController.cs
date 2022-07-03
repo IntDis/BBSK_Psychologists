@@ -23,8 +23,8 @@ namespace BBSK_Psycho.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ProducesResponseType(typeof(int),StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(void),StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status422UnprocessableEntity)]
         public ActionResult <int> AddClient([FromBody] ClientRegisterRequest client)
         {
             int id = 2;
