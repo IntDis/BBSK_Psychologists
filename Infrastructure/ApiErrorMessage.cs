@@ -31,5 +31,6 @@
         public const string EducationIsRequired = "";
         public const string TherapyMethodsIsRequired = "";
         public const string ProblemsIsRequired = "";
+        public const string LalaIsRequired = "";
     }
 }
