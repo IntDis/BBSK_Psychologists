@@ -5,9 +5,9 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBSK_Psycho", "BBSK_Psychologists\BBSK_Psycho.csproj", "{69AE2E0C-5BA7-4BBD-8937-BA4A02484929}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBSK-Psychologists.Tests", "BBSK-Psychologists.Tests\BBSK-Psychologists.Tests.csproj", "{265FFC5F-9E18-4A03-BE06-9722C190753F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBSK_Psychologists.Tests", "BBSK-Psychologists.Tests\BBSK_Psychologists.Tests.csproj", "{265FFC5F-9E18-4A03-BE06-9722C190753F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSK_Psycho.DataLayer", "BBSK_Psycho.DataLayer\BBSK_Psycho.DataLayer.csproj", "{CFE8902A-501F-4E25-8034-6498B6AA172A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBSK_Psycho.DataLayer", "BBSK_Psycho.DataLayer\BBSK_Psycho.DataLayer.csproj", "{CFE8902A-501F-4E25-8034-6498B6AA172A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

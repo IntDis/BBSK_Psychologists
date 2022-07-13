@@ -54,7 +54,7 @@ public class ClientRegisterRequestNegativeTestsSource : IEnumerable
         yield return new object[]
         {
              clientRegisterRequest,
-             ApiErrorMessage.PasswordIsRequire
+             ApiErrorMessage.PasswordIsRequired
         };
 
 

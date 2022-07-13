@@ -11,12 +11,11 @@ namespace BBSK_Psycho.Models
         
         public int ClientId { get; set; }
 
-
         [Required(ErrorMessage = ApiErrorMessage.CostIsRequired)]
         public decimal Cost { get; set; }
 
-        
-        public int Duration { get; set; }
+        [Required(ErrorMessage = ApiErrorMessage.DurationIsRequired)]
+        public SessionDuration Duration { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.MessageIsRequired)]
         public string Message { get; set; }
@@ -29,11 +28,9 @@ namespace BBSK_Psycho.Models
 
         public DateTime? PayDate { get; set; }
 
-
         [Required(ErrorMessage = ApiErrorMessage.OrderPaymentStatusIsRequired)]
-        public OrderPaymentSatus OrderPaymentStatus { get; set; }
+        public OrderPaymentStatus OrderPaymentStatus { get; set; }
     }
-
 }
 
 

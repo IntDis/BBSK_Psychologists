@@ -12,7 +12,7 @@ public class BBSK_PsychoContext : DbContext
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Problem> Problems { get; set; }
     public DbSet<TherapyMethod> TherapyMethods { get; set; }
-
+    public DbSet<Order> Orders { get; set; }
     public DbSet<Education> Educations { get; set; }
 
 
@@ -69,7 +69,7 @@ public class BBSK_PsychoContext : DbContext
             entity.Property(c => c.LastName).HasMaxLength(50);
             entity.Property(c => c.Email).HasMaxLength(140);
             entity.Property(c => c.Password).HasMaxLength(140);
-
+            entity.Property(c => c.PhoneNumber).HasMaxLength(12);
 
         });
 

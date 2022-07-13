@@ -10,7 +10,7 @@ namespace BBSK_Psycho.Models.Responses
 
         public string LastName { get; set; }
 
-        public Gender gender { get; set; }
+        public Gender Gender { get; set; }
 
         public int WorkExperience { get; set; }
 

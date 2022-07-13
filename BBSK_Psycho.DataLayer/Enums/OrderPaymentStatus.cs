@@ -1,6 +1,6 @@
 ﻿namespace BBSK_Psycho.DataLayer.Enums
 {
-    public enum OrderPaymentSatus
+    public enum OrderPaymentStatus
     {
         Unpaid = 1,
         Paid,
