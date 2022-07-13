@@ -144,13 +144,10 @@ namespace BBSK_Psychologists.Tests
                 Patronymic = "ПВАПВА",
                 Gender = Gender.Male,
                 Phone = "85884859",
-                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
                 CheckStatus = CheckStatus.Completed,
                 Email = "ros@fja.com",
                 PasportData = "23146456",
                 Price = 2000,
-                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
-                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
                 WorkExperience = 10,
                 BirthDate = DateTime.Parse("1210 - 12 - 12"),
                 Password = "123345"
@@ -164,13 +161,10 @@ namespace BBSK_Psychologists.Tests
                 Patronymic = "sd",
                 Gender = Gender.Famale,
                 Phone = "888888889",
-                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
                 CheckStatus = CheckStatus.Waiting,
                 Email = "urs@fja.com",
                 PasportData = "8888456",
                 Price = 500,
-                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
-                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
                 WorkExperience = 5,
                 BirthDate = DateTime.Parse("1870 - 07 - 12"),
                 Password = "155545"
@@ -183,26 +177,22 @@ namespace BBSK_Psychologists.Tests
 
             var expected = new Psychologist
             {
-                Id=startPsycholog.Id,
+                Id = startPsycholog.Id,
                 Name = "лял",
                 LastName = "пвфа",
                 Patronymic = "ПВАПВА",
                 Gender = Gender.Famale,
                 Phone = "888888889",
-                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
                 CheckStatus = CheckStatus.Completed,
                 Email = "urs@fja.com",
                 PasportData = "23146456",
                 Price = 500,
-                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
-                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
                 WorkExperience = 10,
                 BirthDate = DateTime.Parse("1210 - 12 - 12"),
                 Password = "155545",
                 Comments = new List<Comment> { }
             };
-            
-            
+
             var actual = context.Psychologists.Find(startPsycholog.Id);
 
             expected.Should().BeEquivalentTo(actual);
