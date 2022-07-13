@@ -39,7 +39,7 @@ namespace BBSK_Psycho.DataLayer.Repositories
             return psychologist.Id;
         }
 
-        public int AddCommentToPsyhologist(Comment comment, int psychologistId)
+        public Comment AddCommentToPsyhologist(Comment comment, int psychologistId)
         {
             var psycho = GetPsychologist(psychologistId);
             comment.Psychologist = psycho;
@@ -50,20 +50,30 @@ namespace BBSK_Psycho.DataLayer.Repositories
             _context.Comments.Add(comment);
             _context.SaveChanges();
 
-            return psychologistId;
+            return comment;
         }
 
         //public int AddRequestPsyhologistSearch(ApplicationForPsychologistSearch applicationForPsychologist)
         //{
-            
 
         //}
 
-        public void UpdatePsychologist(Psychologist psychologist)
-        {
+        public void UpdatePsychologist(Psychologist newProperty, int id)
+        {  
+            var psychologist = GetPsychologist(id);
+            psychologist.Gender = newProperty.Gender;
+            psychologist.Phone = newProperty.Phone;
+            psychologist.TherapyMethods = newProperty.TherapyMethods;
+            psychologist.Email = newProperty.Email;
+            psychologist.Educations = newProperty.Educations;
+            psychologist.Schedules = newProperty.Schedules;
+            psychologist.Price = newProperty.Price;
+            psychologist.Password=newProperty.Password;
+            psychologist.Problems=newProperty.Problems;
             _context.Psychologists.Update(psychologist);
             _context.SaveChanges();
         }
+
         public void DeletePsychologist (int id)
         {
             var psychologist = _context.Psychologists.FirstOrDefault(o => o.Id == id);

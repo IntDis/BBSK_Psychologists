@@ -87,7 +87,7 @@ namespace BBSK_Psycho.Controllers
                 Name = psychologistRequest.Name,
                 BirthDate = psychologistRequest.BirthDate
             };
-            _psychologistsRepository.UpdatePsychologist(psychologist);
+            _psychologistsRepository.UpdatePsychologist(psychologist, psychologist.Id);
             return NoContent();
         }
 
@@ -132,7 +132,7 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(void), StatusCodes.Status422UnprocessableEntity)]
-        public ActionResult<int> AddCommentToPsyhologist([FromBody] CommentRequest commentRequest, int psychologistId)
+        public ActionResult<CommentResponse> AddCommentToPsyhologist([FromBody] CommentRequest commentRequest, int psychologistId)
         {
             var comment = new Comment
             {
