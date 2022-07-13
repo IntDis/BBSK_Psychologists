@@ -68,8 +68,8 @@ namespace BBSK_Psycho.DataLayer.Repositories
             psychologist.Educations = newProperty.Educations;
             psychologist.Schedules = newProperty.Schedules;
             psychologist.Price = newProperty.Price;
-            psychologist.Password=newProperty.Password;
-            psychologist.Problems=newProperty.Problems;
+            psychologist.Password = newProperty.Password;
+            psychologist.Problems = newProperty.Problems;
             _context.Psychologists.Update(psychologist);
             _context.SaveChanges();
         }

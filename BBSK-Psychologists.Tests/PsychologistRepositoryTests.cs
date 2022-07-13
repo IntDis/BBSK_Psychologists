@@ -4,6 +4,7 @@ using BBSK_Psycho.DataLayer.Enums;
 using BBSK_Psycho.DataLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,13 +164,13 @@ namespace BBSK_Psychologists.Tests
                 Patronymic = "sd",
                 Gender = Gender.Famale,
                 Phone = "888888889",
-                Educations = new List<Education> { new Education { EducationData = "2022-11-10", IsDeleted = false } },
+                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
                 CheckStatus = CheckStatus.Waiting,
                 Email = "urs@fja.com",
                 PasportData = "8888456",
                 Price = 500,
-                Problems = new List<Problem> { new Problem { ProblemName = "hhhh", IsDeleted = false } },
-                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "hdfffff", IsDeleted = false } },
+                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
+                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
                 WorkExperience = 5,
                 BirthDate = DateTime.Parse("1870 - 07 - 12"),
                 Password = "155545"
@@ -188,29 +189,23 @@ namespace BBSK_Psychologists.Tests
                 Patronymic = "ПВАПВА",
                 Gender = Gender.Famale,
                 Phone = "888888889",
-                Educations = new List<Education> { new Education { EducationData = "2022-11-10", IsDeleted = false } },
+                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
                 CheckStatus = CheckStatus.Completed,
                 Email = "urs@fja.com",
                 PasportData = "23146456",
                 Price = 500,
-                Problems = new List<Problem> { new Problem { ProblemName = "hhhh", IsDeleted = false } },
-                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "hdfffff", IsDeleted = false } },
+                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
+                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
                 WorkExperience = 10,
                 BirthDate = DateTime.Parse("1210 - 12 - 12"),
                 Password = "155545",
+                Comments = new List<Comment> { }
             };
             
+            
             var actual = context.Psychologists.Find(startPsycholog.Id);
-            //then
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.LastName, actual.LastName);
-            Assert.AreEqual(expected.Patronymic, actual.Patronymic);
-            Assert.AreEqual(expected.Gender, actual.Gender);
-            Assert.AreEqual(expected.Phone, actual.Phone);
-            Assert.AreEqual(expected.CheckStatus, actual.CheckStatus);
-            Assert.AreEqual(expected.Email, actual.Email);
-            Assert.AreEqual(expected.PasportData, actual.PasportData);
-            Assert.AreEqual(expected.Price, actual.Price);
+
+            expected.Should().BeEquivalentTo(actual);
 
         }
 
