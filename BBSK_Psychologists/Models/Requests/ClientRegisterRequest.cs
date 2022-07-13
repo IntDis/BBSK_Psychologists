@@ -12,9 +12,11 @@ public class ClientRegisterRequest
 
     public string? LastName { get; set; }
 
-    [Required(ErrorMessage = ApiErrorMessage.PasswordIsRequired)]
+
+    [Required(ErrorMessage = ApiErrorMessage.PasswordIsRequire)]
     [MinLength(8, ErrorMessage = ApiErrorMessage.PasswordLengthIsLessThanAllowed)]
     public string Password { get; set; }
+
 
     [Required(ErrorMessage = ApiErrorMessage.EmailIsRequire)]
     [EmailAddress(ErrorMessage = ApiErrorMessage.InvalidCharacterInEmail)]
@@ -23,6 +25,7 @@ public class ClientRegisterRequest
 
     [MaxLength(12, ErrorMessage = ApiErrorMessage.LengthExceeded)]
     public string? PhoneNumber { get; set; }
+
 
     public DateTime? BirthDate { get; set; }
 }

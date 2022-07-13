@@ -9,7 +9,7 @@ namespace BBSK_Psycho
         {
 
             Roles = string.Join(",", roles);
-            Roles += $",{Role.Manager}";
+            Roles += $",{Role.Manager.ToString()}";
 
         }
     }

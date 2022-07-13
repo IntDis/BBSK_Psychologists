@@ -36,7 +36,7 @@ public class LoginRequestNegativeTestsSource : IEnumerable
                 Email = "ad@mail.ru",
                 Password = ""
              },
-             ApiErrorMessage.PasswordIsRequired
+             ApiErrorMessage.PasswordIsRequire
         };
 
         yield return new object[]

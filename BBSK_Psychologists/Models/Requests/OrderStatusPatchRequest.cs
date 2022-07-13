@@ -10,6 +10,6 @@ namespace BBSK_Psycho.Models
         public OrderStatus OrderStatus { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.OrderPaymentStatusIsRequired)]
-        public OrderPaymentStatus OrderPaymentStatus { get; set; }
+        public OrderStatus OrderPaymentStatus { get; set; }
     }
 }

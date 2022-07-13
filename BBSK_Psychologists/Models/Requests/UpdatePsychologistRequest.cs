@@ -12,50 +12,36 @@ namespace BBSK_Psycho.Models.Requests
         
         [Required(ErrorMessage = ApiErrorMessage.NameIsRequired)]
         public string Name { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.LastNameIsRequired)]
         public string LastName { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.PatronymicIsRequired)]
         public string Patronymic { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.PsychologistGenderIsRequired)]
-        public Gender Gender { get; set; }
-
+        public Gender gender { get; set; }
         [Required(ErrorMessage = ApiErrorMessage.BirthDateIsRequired)]
         public DateTime BirthDate { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.PhoneNumberIsRequired)]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = ApiErrorMessage.PasswordIsRequired)]
+        [Required(ErrorMessage = ApiErrorMessage.PasswordIsRequire)]
         [MinLength(8, ErrorMessage = ApiErrorMessage.PasswordLengthIsLessThanAllowed)]
         public string Password { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.EmailIsRequire)]
         public string Email { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.WorkExperienceIsRequired)]
         public int WorkExperience { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.PassportDataIsRequired)]
         public string PasportData { get; set; }
-
         [Required(ErrorMessage = ApiErrorMessage.EducationIsRequired)]
         public List<string> Education { get; set; }  // "2013 - Московский Государственный Университет - Факультет - Степень; Dev Education"
-
         [Required()]
-        public CheckStatus CheckStatus { get; set; }        //Enum
-
+        public CheckStatus checkStatus { get; set; }        //Enum
         [Required(ErrorMessage = ApiErrorMessage.TherapyMethodsIsRequired)]
-        public List<string> TherapyMethods { get; set; }
-
+        public List<string>? TherapyMethods { get; set; }
         [Required(ErrorMessage = ApiErrorMessage.ProblemsIsRequired)]
-        public List<string> Problems { get; set; }
-
+        public List<string>? Problems { get; set; }
         [Required(ErrorMessage = ApiErrorMessage.CostIsRequired)]
         public decimal Price { get; set; }
-
         [Required]
         public Dictionary<String, List<String>> Schedule { get; set; }
     }
