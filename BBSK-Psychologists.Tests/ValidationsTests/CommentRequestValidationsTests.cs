@@ -3,7 +3,7 @@ using BBSK_Psychologists.Tests.ModelControllerSource;
 using NUnit.Framework;
 using System.ComponentModel.DataAnnotations;
 
-namespace BBSK_Psychologists.Tests;
+namespace BBSK_Psychologists.Tests.ValidationsTests;
 
 public class CommentRequestValidationsTests
 {

@@ -1,5 +1,4 @@
 ﻿using BBSK_Psycho.Infrastructure;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BBSK_Psycho.Models.Requests

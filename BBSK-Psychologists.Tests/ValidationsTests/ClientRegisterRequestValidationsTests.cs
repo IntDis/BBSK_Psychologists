@@ -4,7 +4,7 @@ using BBSK_Psychologists.Tests.ModelControllerSource;
 using NUnit.Framework;
 using System.ComponentModel.DataAnnotations;
 
-namespace BBSK_Psychologists.Tests;
+namespace BBSK_Psychologists.Tests.ValidationsTests;
 
 public class ClientRegisterRequestValidationsTests
 {
@@ -26,7 +26,7 @@ public class ClientRegisterRequestValidationsTests
 
 
     [Test]
-    public void ClientRegisterRequest_SendingCorrectData_GetAnEmptyStringError ()
+    public void ClientRegisterRequest_SendingCorrectData_GetAnEmptyStringError()
     {
         //given
         var client = new ClientRegisterRequest()
