@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BBSK_Psycho.BusinessLayer;
+namespace BBSK_Psycho.BusinessLayer.Exceptions;
 
 public class EntityNotFoundException : Exception
 {
