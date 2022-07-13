@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
-namespace BBSK_Psychologists.Tests.ControllerTests;
+namespace BBSK_Psychologists.Tests;
 
 public class ClientsControllerTests
 {
@@ -21,7 +21,7 @@ public class ClientsControllerTests
     {
         _mapper = new Mock<IMapper>();
         _clientsRepositoryMock = new Mock<IClientsRepository>();
-        _sut = new ClientsController(_clientsRepositoryMock.Object, _mapper.Object);
+        _sut= new ClientsController(_clientsRepositoryMock.Object, _mapper.Object);        
     }
 
     [Test]
@@ -71,7 +71,7 @@ public class ClientsControllerTests
             Email = "Va@gmail.com",
             Password = "12345678dad",
             PhoneNumber = "89119856375",
-        };
+        }; 
         _clientsRepositoryMock.Setup(o => o.GetClientById(expectedClient.Id)).Returns(expectedClient);
 
 
@@ -81,7 +81,7 @@ public class ClientsControllerTests
         //then
         var actualResult = actual.Result as ObjectResult;
 
-
+        
         Assert.AreEqual(StatusCodes.Status200OK, actualResult.StatusCode);
         _clientsRepositoryMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
         _clientsRepositoryMock.Verify(c => c.DeleteClient(It.IsAny<int>()), Times.Never);
@@ -100,7 +100,7 @@ public class ClientsControllerTests
 
         var client = new Client()
         {
-            Id = 1,
+            Id=1,
             Name = "Vasya",
             LastName = "Petrov",
             Email = "Va@gmail.com",
@@ -232,7 +232,7 @@ public class ClientsControllerTests
         //given
         var expectedClient = new Client()
         {
-            Id = 1,
+            Id=1,
             Name = "Vasya",
             LastName = "Petrov",
             Email = "Va@gmail.com",
@@ -293,7 +293,7 @@ public class ClientsControllerTests
                  PhoneNumber = "89119856375",
             }
         };
-
+        
 
         _clientsRepositoryMock.Setup(o => o.GetClients()).Returns(clients).Verifiable();
 

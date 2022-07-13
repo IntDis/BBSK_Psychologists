@@ -5,7 +5,7 @@ using BBSK_Psychologists.Tests.ModelControllerSource;
 using NUnit.Framework;
 using System.ComponentModel.DataAnnotations;
 
-namespace BBSK_Psychologists.Tests.ValidationsTests;
+namespace BBSK_Psychologists.Tests;
 
 public class LoginRequestValidationsTests
 {

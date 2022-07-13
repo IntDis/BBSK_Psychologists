@@ -10,10 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BBSK_Psychologists.Tests.ControllerTests
+namespace BBSK_Psychologists.Tests
 {
     public class PsychologistControllerTests
-    {
+{
         private PsychologistsController _sut;
         private AddPsychologistRequest psychologistDataAdd = new AddPsychologistRequest
         {
@@ -66,11 +66,11 @@ namespace BBSK_Psychologists.Tests.ControllerTests
 
             var request = new CommentRequest
             {
-                ClientId = 1,
-                PsychologistId = 1,
-                Text = "kdffk",
-                Rating = 1,
-                Date = DateTime.Now
+              ClientId=1,
+              PsychologistId= 1,
+              Text = "kdffk",
+              Rating= 1,
+              Date= DateTime.Now
             };
             int psId = 2;
             // when
