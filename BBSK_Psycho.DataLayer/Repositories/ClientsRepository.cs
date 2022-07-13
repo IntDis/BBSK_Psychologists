@@ -32,13 +32,13 @@ public class ClientsRepository : IClientsRepository
         return client.Id;
     }
 
-    public void UpdateClient(Client newProperty, int id)
+    public void UpdateClient(Client newClientModel, int id)
     {
         var client=GetClientById(id);
 
-        client.Name = newProperty.Name;
-        client.LastName = newProperty.LastName;
-        client.BirthDate = newProperty.BirthDate;
+        client.Name = newClientModel.Name;
+        client.LastName = newClientModel.LastName;
+        client.BirthDate = newClientModel.BirthDate;
 
         _context.Clients.Update(client);
         _context.SaveChanges();

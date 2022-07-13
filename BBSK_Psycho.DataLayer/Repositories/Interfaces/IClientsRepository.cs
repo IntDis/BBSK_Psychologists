@@ -10,6 +10,6 @@ namespace BBSK_Psycho.DataLayer.Repositories
         public List<Client> GetClients();
         List<Comment> GetCommentsByClientId(int id);
         List<Order> GetOrdersByClientId(int id);
-        void UpdateClient(Client client, int id);
+        void UpdateClient(Client newClientModel, int id);
     }
 }

@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BBSK_Psycho.DataLayer\BBSK_Psycho.DataLayer.csproj" />
+    <ProjectReference Include="..\BBSK_Psycho.BusinessLayer\BBSK_Psycho.BusinessLayer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -24,7 +24,7 @@ namespace BBSK_Psycho.Controllers
             _clientsRepository = clientsRepository;
             _mapper = mapper;   
         }
-       
+
 
 
         [AllowAnonymous]
