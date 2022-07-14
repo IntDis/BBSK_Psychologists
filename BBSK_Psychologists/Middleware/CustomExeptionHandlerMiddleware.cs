@@ -11,7 +11,7 @@ public class CustomExeptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public CustomExeptionHandlerrMiddleware(RequestDelegate next) =>
+    public CustomExeptionHandlerMiddleware(RequestDelegate next) =>
         _next = next;
 
     public async Task Invoke(HttpContext context)
@@ -24,10 +24,11 @@ public class CustomExeptionHandlerMiddleware
         {
             await HandleExceptionAsync(context, exception);
         }
-        catch (InvalidLengthException exception)
+        catch (UniquenessException exception)
         {
             await HandleExceptionAsync(context, exception);
         }
+        
 
     }
 
@@ -45,9 +46,10 @@ public class CustomExeptionHandlerMiddleware
             case EntityNotFoundException:
                 code = HttpStatusCode.NotFound;
                 break;
-            case InvalidLengthException:
-                code = HttpStatusCode.BadRequest;
+            case UniquenessException:
+                code = HttpStatusCode.NotFound;
                 break;
+
         }
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;

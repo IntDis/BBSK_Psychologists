@@ -64,31 +64,11 @@ public class ClientsServices : IClientsServices
 
     public int AddClient(Client client)
     {
-        
-        int minLenghtForPassword = 8;
-        int minLenghtForPhoneNumber = 12;
+        var isChecked = CheckingEmailForUniqueness(client.Email);
 
-        var check = CheckingEmailForUniqueness(client.Email);
-  
-
-        if (client.Email == null || client.Password == null || client.Name == null)
+        if (isChecked)
         {
-            throw new EntityNotFoundException($"Email, password or name is null");
-
-            if (check)
-            {
-                throw new EntityNotFoundException($"That email is registred");
-
-                if (client.Password.Length < minLenghtForPassword || client.PhoneNumber.Length > 12)
-                {
-                    throw new InvalidLengthException($"Password or Phone number does not match the length");
-
-                    if (client.Email.Contains("@"))
-                    {
-                        throw new EntityNotFoundException($"Invalid email format");
-                    }
-                }
-            }
+            throw new UniquenessException($"That email is registred");
         }
 
         return _clientsRepository.AddClient(client);
