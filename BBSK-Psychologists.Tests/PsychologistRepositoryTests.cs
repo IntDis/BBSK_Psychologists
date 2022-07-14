@@ -150,7 +150,12 @@ namespace BBSK_Psychologists.Tests
                 Price = 2000,
                 WorkExperience = 10,
                 BirthDate = DateTime.Parse("1210 - 12 - 12"),
-                Password = "123345"
+                Password = "123345",
+                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
+                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
+                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
+
+
             };
             context.Psychologists.Add(startPsycholog);
             context.SaveChanges();
@@ -167,7 +172,10 @@ namespace BBSK_Psychologists.Tests
                 Price = 500,
                 WorkExperience = 5,
                 BirthDate = DateTime.Parse("1870 - 07 - 12"),
-                Password = "155545"
+                Password = "155545",
+                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
+                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
+                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
             };
 
             //when
@@ -190,13 +198,23 @@ namespace BBSK_Psychologists.Tests
                 WorkExperience = 10,
                 BirthDate = DateTime.Parse("1210 - 12 - 12"),
                 Password = "155545",
-                Comments = new List<Comment> { }
+                Educations = new List<Education> { new Education { EducationData = "2020-12-12", IsDeleted = false } },
+                Problems = new List<Problem> { new Problem { ProblemName = "ds", IsDeleted = false } },
+                TherapyMethods = new List<TherapyMethod> { new TherapyMethod { Method = "therapy lal", IsDeleted = false } },
+                Comments = new List<Comment> { },
+                Schedules = new List<Schedule> { }
             };
 
             var actual = context.Psychologists.Find(startPsycholog.Id);
 
-            expected.Should().BeEquivalentTo(actual);
+            expected.Should().BeEquivalentTo(actual, options =>
+            
+                options.Excluding( o => o.Educations)
+                .Excluding(o => o.TherapyMethods)
+                .Excluding(o => o.Schedules)
+                .Excluding(o => o.Problems)
 
+            );
         }
 
         [Test]

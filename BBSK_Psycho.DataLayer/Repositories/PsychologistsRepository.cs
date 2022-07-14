@@ -63,13 +63,22 @@ namespace BBSK_Psycho.DataLayer.Repositories
             var psychologist = GetPsychologist(id);
             psychologist.Gender = newProperty.Gender;
             psychologist.Phone = newProperty.Phone;
-            psychologist.TherapyMethods = newProperty.TherapyMethods;
+            psychologist.TherapyMethods.Clear();
+            _context.SaveChanges();
+            psychologist.TherapyMethods=newProperty.TherapyMethods;
+            _context.SaveChanges();
             psychologist.Email = newProperty.Email;
+            psychologist.Educations.Clear();
+            _context.SaveChanges();
             psychologist.Educations = newProperty.Educations;
-            psychologist.Schedules = newProperty.Schedules;
+            _context.SaveChanges();
             psychologist.Price = newProperty.Price;
             psychologist.Password = newProperty.Password;
+            psychologist.Problems.Clear(); 
+            _context.SaveChanges();
             psychologist.Problems = newProperty.Problems;
+            _context.SaveChanges();
+            
             _context.Psychologists.Update(psychologist);
             _context.SaveChanges();
         }
