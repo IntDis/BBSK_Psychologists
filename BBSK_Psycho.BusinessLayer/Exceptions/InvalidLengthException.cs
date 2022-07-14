@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BBSK_Psycho.BusinessLayer.Exceptions
+namespace BBSK_Psycho.BusinessLayer.Exceptions;
+
+public class InvalidLengthException : Exception
 {
-    internal class InvalidLengthException
-    {
-    }
+    public InvalidLengthException(string message) : base(message) { }
 }

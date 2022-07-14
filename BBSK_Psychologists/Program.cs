@@ -8,6 +8,7 @@ using BBSK_Psycho.DataLayer;
 using BBSK_Psycho.DataLayer.Repositories;
 using BBSK_Psycho;
 using BBSK_Psycho.BusinessLayer.Services;
+using BBSK_Psycho.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -97,6 +98,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 
