@@ -28,7 +28,11 @@ public class CustomExeptionHandlerMiddleware
         {
             await HandleExceptionAsync(context, exception);
         }
-        
+        catch (DataException exception)
+        {
+            await HandleExceptionAsync(context, exception);
+        }
+
 
     }
 
@@ -47,10 +51,14 @@ public class CustomExeptionHandlerMiddleware
                 code = HttpStatusCode.NotFound;
                 break;
             case UniquenessException:
-                code = HttpStatusCode.NotFound;
+                code = HttpStatusCode.UnprocessableEntity;
+                break;
+            case DataException:
+                code = HttpStatusCode.UnprocessableEntity;
                 break;
 
         }
+        
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;
 

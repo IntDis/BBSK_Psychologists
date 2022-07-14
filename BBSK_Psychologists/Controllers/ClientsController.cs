@@ -20,9 +20,9 @@ namespace BBSK_Psycho.Controllers
 
         private readonly IMapper _mapper;
 
-        public ClientsController(IClientsServices clientsRepository, IMapper mapper)
+        public ClientsController(IClientsServices clientsServices, IMapper mapper)
         {
-            _clientsServices = clientsRepository;
+            _clientsServices = clientsServices;
             _mapper = mapper;   
         }
 

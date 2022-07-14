@@ -64,14 +64,27 @@ public class ClientsServices : IClientsServices
 
     public int AddClient(Client client)
     {
-        var isChecked = CheckingEmailForUniqueness(client.Email);
 
+        var isChecked = CheckingEmailForUniqueness(client.Email);
+        
         if (isChecked)
         {
             throw new UniquenessException($"That email is registred");
         }
+        if(client.PhoneNumber is not null)
+        {
+            if (!(client.PhoneNumber.StartsWith("+7") || client.PhoneNumber.StartsWith("8") && client.PhoneNumber.Length <= 11))
+            {
+                throw new UniquenessException($"Invalid phone number");
+            }
+        }
+        if (client.BirthDate>DateTime.Now)
+        {
+            throw new UniquenessException($"Invalid birthday");
+        }
+        else
+             return _clientsRepository.AddClient(client);
 
-        return _clientsRepository.AddClient(client);
     }
 
     public void UpdateClient(Client newClientModel, int id)
@@ -97,8 +110,6 @@ public class ClientsServices : IClientsServices
         }
         else
             _clientsRepository.DeleteClient(id);
-
-
     }
 
 
@@ -109,6 +120,6 @@ public class ClientsServices : IClientsServices
         var uniqueEmail = clients.Any(c=>c.Email==email);
 
         return uniqueEmail;
-
     }
+
 }
