@@ -112,7 +112,7 @@ namespace BBSK_Psycho.Controllers
             var result=_psychologistsRepository.GetCommentsByPsychologistId(psychologistId);
                 return Ok(result);
         }
-
+        // Этот метод будет перенесен в клиента!!!!
         [AuthorizeByRole(Role.Client)]
         [HttpPost("request-psyhologist-search")]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
