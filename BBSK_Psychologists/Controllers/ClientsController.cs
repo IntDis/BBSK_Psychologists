@@ -7,6 +7,7 @@ using BBSK_Psycho.Extensions;
 using BBSK_Psycho.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BBSK_Psycho.Controllers
 {
@@ -47,7 +48,9 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public ActionResult<ClientResponse> GetClientById([FromRoute] int id)
         {
-            var client = _clientsServices.GetClientById(id);
+            List<ClaimsIdentity> identities = this.User.Identities.ToList();
+
+            var client = _clientsServices.GetClientById(id, identities);
 
             if (client is null)
                 return NotFound();
@@ -65,6 +68,8 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public ActionResult UpdateClientById([FromBody] ClientUpdateRequest request, [FromRoute] int id)
         {
+            List<ClaimsIdentity> identities = this.User.Identities.ToList();
+
             var client = new Client()
             {
                 Name = request.Name,
@@ -73,7 +78,7 @@ namespace BBSK_Psycho.Controllers
             };
             
 
-            _clientsServices.UpdateClient(client, id);
+            _clientsServices.UpdateClient(client, id, identities);
 
             return NoContent();
         }
@@ -87,7 +92,9 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public ActionResult <List<CommentResponse>> GetCommentsByClientId([FromRoute] int id)
         {
-            var clientComents = _clientsServices.GetCommentsByClientId(id);
+            List<ClaimsIdentity> identities = this.User.Identities.ToList();
+
+            var clientComents = _clientsServices.GetCommentsByClientId(id, identities);
             if (clientComents is null)
                 return NotFound();
             else
@@ -103,7 +110,9 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public ActionResult <List<OrderResponse>> GetOrdersByClientId([FromRoute] int id)
         {
-            var clientOrders = _clientsServices.GetOrdersByClientId(id);
+            List<ClaimsIdentity> identities = this.User.Identities.ToList();
+
+            var clientOrders = _clientsServices.GetOrdersByClientId(id, identities);
             if(clientOrders is null)
                 return NotFound();
             else
@@ -119,11 +128,15 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public ActionResult DeleteClientById([FromRoute] int id)
         {
-            var client = _clientsServices.GetClientById(id);
+            List<ClaimsIdentity> identities = this.User.Identities.ToList();
+            
+
+            var client = _clientsServices.GetClientById(id, null);
+
             if (client is null)
                 return NotFound();
             else
-                _clientsServices.DeleteClient(id);
+                _clientsServices.DeleteClient(id, identities);
                 return NoContent();
         }
 

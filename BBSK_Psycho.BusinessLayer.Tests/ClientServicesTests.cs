@@ -11,15 +11,14 @@ namespace BBSK_Psycho.BusinessLayer.Tests
     public class ClientServicesTests
     {
         private ClientsServices _sut;
-        private Mock<IClientsRepository> _clientsServicesMock;
-        private Mock<IMapper> _mapper;
+        private Mock<IClientsRepository> _clientsRepositoryMock;
 
         [SetUp]
         public void Setup()
         {
-            _mapper = new Mock<IMapper>();
-            _clientsServicesMock = new Mock<IClientsRepository>();
-            _sut = new ClientsServices(_clientsServicesMock.Object);
+
+            _clientsRepositoryMock = new Mock<IClientsRepository>();
+            _sut = new ClientsServices(_clientsRepositoryMock.Object);
         }
 
         [Test]

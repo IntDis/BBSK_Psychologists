@@ -32,6 +32,10 @@ public class CustomExeptionHandlerMiddleware
         {
             await HandleExceptionAsync(context, exception);
         }
+        catch (AccessException exception)
+        {
+            await HandleExceptionAsync(context, exception);
+        }
 
 
     }
@@ -55,6 +59,9 @@ public class CustomExeptionHandlerMiddleware
                 break;
             case DataException:
                 code = HttpStatusCode.UnprocessableEntity;
+                break;
+            case AccessException:
+                code = HttpStatusCode.Forbidden;
                 break;
 
         }

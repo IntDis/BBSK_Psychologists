@@ -1,12 +1,10 @@
 ﻿using BBSK_Psycho.BusinessLayer.Exceptions;
 using BBSK_Psycho.BusinessLayer.Services;
 using BBSK_Psycho.DataLayer.Entities;
+using BBSK_Psycho.DataLayer.Enums;
 using BBSK_Psycho.DataLayer.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
+
 
 namespace BBSK_Psycho.BusinessLayer.Services;
 
@@ -19,12 +17,20 @@ public class ClientsServices : IClientsServices
         _clientsRepository = clientsRepository;
     }
 
-    public Client? GetClientById(int id)
+    public Client? GetClientById(int id, List<ClaimsIdentity> identities)
     {
         var client = _clientsRepository.GetClientById(id);
+        var role = identities[0].Claims.ToList();
+
         if (client == null)
         {
             throw new EntityNotFoundException($"Client {id} not found");
+        }
+        if (!(identities[0].Name == (string)client.Email || role[1].Value == $"{Role.Manager}"))
+        {
+
+            throw new AccessException($"Not enough rights");
+
         }
         else
             return client;
@@ -41,22 +47,40 @@ public class ClientsServices : IClientsServices
             return clients;
     }
 
-    public List<Comment> GetCommentsByClientId(int id)
+    public List<Comment> GetCommentsByClientId(int id, List<ClaimsIdentity> identities)
     {
         var comments = _clientsRepository.GetCommentsByClientId(id);
+        var client = _clientsRepository.GetClientById(id);
+        var role = identities[0].Claims.ToList();
+
         if (comments == null)
         {
             throw new EntityNotFoundException($"Comments by client {id} not found");
         }
+        if (!(identities[0].Name == (string)client.Email || role[1].Value == $"{Role.Manager}"))
+        {
+
+            throw new AccessException($"Not enough rights");
+
+        }
         return comments;
     }
 
-    public List<Order> GetOrdersByClientId(int id)
+    public List<Order> GetOrdersByClientId(int id, List<ClaimsIdentity> identities)
     {
         var orders = _clientsRepository.GetOrdersByClientId(id);
+        var client = _clientsRepository.GetClientById(id);
+        var role = identities[0].Claims.ToList();
+
         if (orders == null)
         {
             throw new EntityNotFoundException($"Orders by client {id} not found");
+        }
+        if (!(identities[0].Name == (string)client.Email || role[1].Value == $"{Role.Manager}"))
+        {
+
+            throw new AccessException($"Not enough rights");
+
         }
         else
             return orders;
@@ -66,7 +90,8 @@ public class ClientsServices : IClientsServices
     {
 
         var isChecked = CheckingEmailForUniqueness(client.Email);
-        
+
+
         if (isChecked)
         {
             throw new UniquenessException($"That email is registred");
@@ -75,38 +100,52 @@ public class ClientsServices : IClientsServices
         {
             if (!(client.PhoneNumber.StartsWith("+7") || client.PhoneNumber.StartsWith("8") && client.PhoneNumber.Length <= 11))
             {
-                throw new UniquenessException($"Invalid phone number");
+                throw new DataException($"Invalid phone number");
             }
         }
         if (client.BirthDate>DateTime.Now)
         {
-            throw new UniquenessException($"Invalid birthday");
+            throw new DataException($"Invalid birthday");
         }
         else
              return _clientsRepository.AddClient(client);
 
     }
 
-    public void UpdateClient(Client newClientModel, int id)
+    public void UpdateClient(Client newClientModel, int id, List<ClaimsIdentity> identities)
     {
         var client = _clientsRepository.GetClientById(id);
+        var role = identities[0].Claims.ToList();
 
         if (client == null)
         {
             throw new EntityNotFoundException($"Client {id} not found");
+        }
+        if (!(identities[0].Name == (string)client.Email || role[1].Value == $"{Role.Manager}"))
+        {
+
+            throw new AccessException($"Not enough rights");
+
         }
         else
             _clientsRepository.UpdateClient(newClientModel, id);
         
     }
 
-    public void DeleteClient(int id)
+    public void DeleteClient(int id, List<ClaimsIdentity> identities)
     {
         var client = _clientsRepository.GetClientById(id);
+        var role = identities[0].Claims.ToList();
 
         if (client == null)
         {
             throw new EntityNotFoundException($"Client {id} not found");
+        }
+        if (!(identities[0].Name == (string)client.Email || role[1].Value == $"{Role.Manager}"))
+        {
+
+            throw new AccessException($"Not enough rights");
+            
         }
         else
             _clientsRepository.DeleteClient(id);
