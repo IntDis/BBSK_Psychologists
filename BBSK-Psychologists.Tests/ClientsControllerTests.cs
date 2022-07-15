@@ -113,7 +113,7 @@ public class ClientsControllerTests
         };
 
 
-        var newProperty = new ClientUpdateRequest()
+        var newClientModel = new ClientUpdateRequest()
         {
             Name = "Petro",
             LastName = "Sobakov",
@@ -123,7 +123,7 @@ public class ClientsControllerTests
 
 
         //when
-        var actual = _sut.UpdateClientById(newProperty, client.Id);
+        var actual = _sut.UpdateClientById(newClientModel, client.Id);
 
         //then
         var actualResult = actual as NoContentResult;

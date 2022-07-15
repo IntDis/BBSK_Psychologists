@@ -20,11 +20,9 @@ public class ClientsServices : IClientsServices
     public Client? GetClientById(int id, List<Claim>? identities)
     {
        
-
         var client = _clientsRepository.GetClientById(id);
      
-
-        if (client == null)
+        if (client == null || client.Id == 0)
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
@@ -37,50 +35,49 @@ public class ClientsServices : IClientsServices
             return client;
     }
 
-    public List<Client> GetClients()
+
+    public List<Client> GetClients()//??????????
     {
         var clients = _clientsRepository.GetClients();
-        if (clients == null)
-        {
-            throw new EntityNotFoundException($"Client not found");
-        }
-        else
-            return clients;
+      
+        return clients;
     }
+
 
     public List<Comment> GetCommentsByClientId(int id, List<Claim> identities)
     {
-        var comments = _clientsRepository.GetCommentsByClientId(id);
         var client = _clientsRepository.GetClientById(id);
-
-
-        if (comments == null)
+        var comments = _clientsRepository.GetCommentsByClientId(id);
+        
+        if (client == null || client.Id == 0)
         {
-            throw new EntityNotFoundException($"Comments by client {id} not found");
+            throw new EntityNotFoundException($"Client { id } not found");
         }
+       
         if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
         {
 
-            throw new AccessException($"Not enough rights");
+            throw new AccessException($"Access denied");
 
         }
         return comments;
     }
 
+
     public List<Order> GetOrdersByClientId(int id, List<Claim> identities)
     {
-        var orders = _clientsRepository.GetOrdersByClientId(id);
         var client = _clientsRepository.GetClientById(id);
-        
+        var orders = _clientsRepository.GetOrdersByClientId(id);
 
-        if (orders == null)
+
+        if (client == null || client.Id == 0)
         {
             throw new EntityNotFoundException($"Orders by client {id} not found");
         }
         if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
         {
 
-            throw new AccessException($"Not enough rights");
+            throw new AccessException($"Access denied");
 
         }
         else
@@ -118,14 +115,14 @@ public class ClientsServices : IClientsServices
         var client = _clientsRepository.GetClientById(id);
 
 
-        if (client == null)
+        if (client == null || client.Id ==0)
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
         if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
         {
 
-            throw new AccessException($"Not enough rights");
+            throw new AccessException($"Access denied");
 
         }
         else
@@ -138,14 +135,14 @@ public class ClientsServices : IClientsServices
         var client = _clientsRepository.GetClientById(id);
 
 
-        if (client == null)
+        if (client == null || client.Id == 0)
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
         if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
         {
 
-            throw new AccessException($"Not enough rights");
+            throw new AccessException($"Access denied");
             
         }
         else
