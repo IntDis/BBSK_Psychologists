@@ -14,7 +14,7 @@ public class ClientsRepository : IClientsRepository
 
     public Client? GetClientById(int id) => _context.Clients.FirstOrDefault(c => c.Id == id);
 
-    public List<Client> GetClients() => (List<Client>)_context.Clients
+    public List<Client> GetClients() => _context.Clients
         .Where(c => c.IsDeleted== false)
         .AsNoTracking()
         .ToList();
