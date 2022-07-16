@@ -65,7 +65,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(typeof(MapperConfigStorage));
 
-builder.Services.AddScoped<IClientsServices, ClientsServices>();
+builder.Services.AddScoped<IClientsServices, ClientsService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -8,11 +8,11 @@ using System.Security.Claims;
 
 namespace BBSK_Psycho.BusinessLayer.Services;
 
-public class ClientsServices : IClientsServices
+public class ClientsService : IClientsServices
 {
     private readonly IClientsRepository _clientsRepository;
 
-    public ClientsServices(IClientsRepository clientsRepository)
+    public ClientsService(IClientsRepository clientsRepository)
     {
         _clientsRepository = clientsRepository;
     }
@@ -26,7 +26,7 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -54,7 +54,7 @@ public class ClientsServices : IClientsServices
             throw new EntityNotFoundException($"Client { id } not found");
         }
        
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -74,7 +74,7 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Orders by client {id} not found");
         }
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -119,7 +119,7 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -140,7 +140,7 @@ public class ClientsServices : IClientsServices
             throw new EntityNotFoundException($"Client {id} not found");
         }
 
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}" ) || identities is null)
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -148,6 +148,7 @@ public class ClientsServices : IClientsServices
         }
         else
             _clientsRepository.DeleteClient(id);
+
     }
 
 

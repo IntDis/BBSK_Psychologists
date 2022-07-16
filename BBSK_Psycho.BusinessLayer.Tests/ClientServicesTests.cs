@@ -12,7 +12,7 @@ namespace BBSK_Psycho.BusinessLayer.Tests
 {
     public class ClientServicesTests
     {
-        private ClientsServices _sut;
+        private ClientsService _sut;
         private Mock<IClientsRepository> _clientsRepositoryMock;
 
         private List<Claim> _identities;
@@ -22,7 +22,7 @@ namespace BBSK_Psycho.BusinessLayer.Tests
         {
 
             _clientsRepositoryMock = new Mock<IClientsRepository>();
-            _sut = new ClientsServices(_clientsRepositoryMock.Object);
+            _sut = new ClientsService(_clientsRepositoryMock.Object);
         }
 
 
