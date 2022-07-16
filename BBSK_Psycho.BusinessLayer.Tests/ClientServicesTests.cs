@@ -661,6 +661,7 @@ namespace BBSK_Psycho.BusinessLayer.Tests
 
             };
 
+           
 
             _clientsRepositoryMock.Setup(o => o.GetClientById(expectedClient.Id)).Returns(expectedClient);
             _clientsRepositoryMock.Setup(o => o.DeleteClient(expectedClient.Id));

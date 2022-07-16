@@ -150,11 +150,6 @@ namespace BBSK_Psycho.Controllers
                 Identities = this.User.Claims.ToList();
             }
 
-            var client = _clientsServices.GetClientById(id, null);
-
-            if (client is null)
-                return NotFound();
-            else
                 _clientsServices.DeleteClient(id, Identities);
             return NoContent();
         }

@@ -257,7 +257,7 @@ public class ClientsControllerTests
         Assert.AreEqual(StatusCodes.Status204NoContent, actualResult.StatusCode);
         ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
         ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
+        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
         ClientsServicesMock.Verify(c => c.GetClients(), Times.Never);
         ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
         ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);

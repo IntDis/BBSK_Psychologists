@@ -26,7 +26,7 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -54,7 +54,7 @@ public class ClientsServices : IClientsServices
             throw new EntityNotFoundException($"Client { id } not found");
         }
        
-        if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -74,7 +74,7 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Orders by client {id} not found");
         }
-        if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -119,7 +119,7 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}") || identities is null)
         {
 
             throw new AccessException($"Access denied");
@@ -139,7 +139,8 @@ public class ClientsServices : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if (!(identities[0].Value == (string)client.Email || identities[1].Value == $"{Role.Manager}"))
+
+        if ((identities[0].Value != (string)client.Email && identities[1].Value != $"{Role.Manager}" ) || identities is null)
         {
 
             throw new AccessException($"Access denied");
