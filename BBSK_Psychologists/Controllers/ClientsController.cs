@@ -1,4 +1,5 @@
 using AutoMapper;
+using BBSK_Psycho.BusinessLayer;
 using BBSK_Psycho.BusinessLayer.Services;
 using BBSK_Psycho.DataLayer.Entities;
 using BBSK_Psycho.DataLayer.Enums;
@@ -21,7 +22,7 @@ namespace BBSK_Psycho.Controllers
 
         private readonly IMapper _mapper;
 
-        public List<Claim>? Identities;
+        public ClaimModel Claims;
 
         public ClientsController(IClientsServices clientsServices, IMapper mapper)
         {
@@ -50,19 +51,10 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public ActionResult<ClientResponse> GetClientById([FromRoute] int id)
         {
-            
+            var claims =this.GetClaims();
 
-            if (this.User != null)
-            {
-                Identities = this.User.Claims.ToList();
-            }
-
-            var client = _clientsServices.GetClientById(id, Identities);
-
-            if (client is null)
-                return NotFound();
-            else
-                return Ok(_mapper.Map<ClientResponse>(client));
+            var client = _clientsServices.GetClientById(id, claims);
+            return Ok(_mapper.Map<ClientResponse>(client));
         }
 
 
@@ -75,10 +67,7 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public ActionResult UpdateClientById([FromBody] ClientUpdateRequest request, [FromRoute] int id)
         {
-            if (this.User != null)
-            {
-                Identities = this.User.Claims.ToList();
-            }
+            var claims = this.GetClaims();
 
             var client = new Client()
             {
@@ -88,7 +77,7 @@ namespace BBSK_Psycho.Controllers
             };
 
 
-            _clientsServices.UpdateClient(client, id, Identities);
+            _clientsServices.UpdateClient(client, id, claims);
 
             return NoContent();
         }
@@ -102,16 +91,11 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public ActionResult<List<CommentResponse>> GetCommentsByClientId([FromRoute] int id)
         {
-            if (this.User != null)
-            {
-                Identities = this.User.Claims.ToList();
-            }
+            var claims = this.GetClaims();
 
-            var clientComents = _clientsServices.GetCommentsByClientId(id, Identities);
-            if (clientComents is null)
-                return NotFound();
-            else
-                return Ok(_mapper.Map<List<CommentResponse>>(clientComents));
+            var clientComents = _clientsServices.GetCommentsByClientId(id, claims);
+
+            return Ok(_mapper.Map<List<CommentResponse>>(clientComents));
         }
 
 
@@ -123,16 +107,11 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public ActionResult<List<OrderResponse>> GetOrdersByClientId([FromRoute] int id)
         {
-            if (this.User != null)
-            {
-                Identities = this.User.Claims.ToList();
-            }
+            var claims = this.GetClaims();
 
-            var clientOrders = _clientsServices.GetOrdersByClientId(id, Identities);
-            if (clientOrders is null)
-                return NotFound();
-            else
-                return Ok(_mapper.Map<List<OrderResponse>>(clientOrders));
+            var clientOrders = _clientsServices.GetOrdersByClientId(id, claims);
+
+            return Ok(_mapper.Map<List<OrderResponse>>(clientOrders));
         }
 
 
@@ -144,13 +123,9 @@ namespace BBSK_Psycho.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public ActionResult DeleteClientById([FromRoute] int id)
         {
-
-            if (this.User != null)
-            {
-                Identities = this.User.Claims.ToList();
-            }
-
-                _clientsServices.DeleteClient(id, Identities);
+            var claimsUser = this.GetClaims();
+           
+                _clientsServices.DeleteClient(id, claimsUser);
             return NoContent();
         }
 

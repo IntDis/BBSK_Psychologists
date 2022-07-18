@@ -1,9 +1,7 @@
 ﻿using BBSK_Psycho.BusinessLayer.Exceptions;
-using BBSK_Psycho.BusinessLayer.Services;
 using BBSK_Psycho.DataLayer.Entities;
 using BBSK_Psycho.DataLayer.Enums;
 using BBSK_Psycho.DataLayer.Repositories;
-using System.Security.Claims;
 
 
 namespace BBSK_Psycho.BusinessLayer.Services;
@@ -17,16 +15,16 @@ public class ClientsService : IClientsServices
         _clientsRepository = clientsRepository;
     }
 
-    public Client? GetClientById(int id, List<Claim>? identities)
+    public Client? GetClientById(int id, ClaimModel claims)
     {
        
         var client = _clientsRepository.GetClientById(id);
      
-        if (client == null || client.Id == 0)
+        if (client == null)
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
+        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
         {
 
             throw new AccessException($"Access denied");
@@ -36,7 +34,7 @@ public class ClientsService : IClientsServices
     }
 
 
-    public List<Client> GetClients()//??????????
+    public List<Client> GetClients()
     {
         var clients = _clientsRepository.GetClients();
       
@@ -44,17 +42,17 @@ public class ClientsService : IClientsServices
     }
 
 
-    public List<Comment> GetCommentsByClientId(int id, List<Claim> identities)
+    public List<Comment> GetCommentsByClientId(int id, ClaimModel claims)
     {
         var client = _clientsRepository.GetClientById(id);
         var comments = _clientsRepository.GetCommentsByClientId(id);
         
-        if (client == null || client.Id == 0)
+        if (client == null )
         {
             throw new EntityNotFoundException($"Client { id } not found");
         }
        
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
+        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
         {
 
             throw new AccessException($"Access denied");
@@ -64,17 +62,17 @@ public class ClientsService : IClientsServices
     }
 
 
-    public List<Order> GetOrdersByClientId(int id, List<Claim> identities)
+    public List<Order> GetOrdersByClientId(int id, ClaimModel claims)
     {
         var client = _clientsRepository.GetClientById(id);
         var orders = _clientsRepository.GetOrdersByClientId(id);
 
 
-        if (client == null || client.Id == 0)
+        if (client == null)
         {
             throw new EntityNotFoundException($"Orders by client {id} not found");
         }
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
+        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
         {
 
             throw new AccessException($"Access denied");
@@ -90,7 +88,7 @@ public class ClientsService : IClientsServices
         var isChecked = CheckingEmailForUniqueness(client.Email);
 
 
-        if (isChecked)
+        if (!isChecked)
         {
             throw new UniquenessException($"That email is registred");
         }
@@ -110,16 +108,16 @@ public class ClientsService : IClientsServices
 
     }
 
-    public void UpdateClient(Client newClientModel, int id, List<Claim> identities)
+    public void UpdateClient(Client newClientModel, int id, ClaimModel claims)
     {
         var client = _clientsRepository.GetClientById(id);
 
 
-        if (client == null || client.Id ==0)
+        if (client == null)
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
+        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
         {
 
             throw new AccessException($"Access denied");
@@ -130,17 +128,17 @@ public class ClientsService : IClientsServices
         
     }
 
-    public void DeleteClient(int id, List<Claim> identities)
+    public void DeleteClient(int id, ClaimModel claims)
     {
         var client = _clientsRepository.GetClientById(id);
 
 
-        if (client == null || client.Id == 0)
+        if (client == null)
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
 
-        if ((identities[0].Value != (string)client.Email && identities[1].Value != Role.Manager.ToString()) || identities is null)
+        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
         {
 
             throw new AccessException($"Access denied");
@@ -152,17 +150,7 @@ public class ClientsService : IClientsServices
     }
 
 
-    private bool CheckingEmailForUniqueness(string email)
-    {
-        var clients = _clientsRepository.GetClients();
+    private bool CheckingEmailForUniqueness(string email) => _clientsRepository.GetClientByEmail(email) == null;
 
-        if(clients is not null)
-        {
-            var uniqueEmail = clients.Any(c => c.Email == email);
-            return uniqueEmail;
-        }
-            else return false;
-
-    }
 
 }

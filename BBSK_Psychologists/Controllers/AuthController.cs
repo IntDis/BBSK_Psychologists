@@ -40,7 +40,7 @@ namespace BBSK_Psycho.Controllers
 
             var roleClaim = new Claim(ClaimTypes.Role, role.ToString()); //присвоение ролей (клиент, психолог, менеджер)
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, request.Email), roleClaim };
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, request.Email), new Claim(ClaimTypes.NameIdentifier, request.ToString()), roleClaim };
 
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.Issuer,

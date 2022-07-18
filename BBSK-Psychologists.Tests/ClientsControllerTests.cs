@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BBSK_Psycho.BusinessLayer;
 using BBSK_Psycho.BusinessLayer.Services;
 using BBSK_Psycho.Controllers;
 using BBSK_Psycho.DataLayer.Entities;
@@ -14,25 +15,25 @@ namespace BBSK_Psychologists.Tests;
 public class ClientsControllerTests
 {
     private ClientsController _sut;
-    private Mock<IClientsServices> ClientsServicesMock;
+    private Mock<IClientsServices> _clientsServicesMock;
     private Mock<IMapper> _mapper;
 
-    private  List<Claim> _identities;
+    private ClaimModel _claim;
 
     [SetUp]
     public void Setup()
     {
-        
+        _claim = new();
         _mapper = new Mock<IMapper>();
-        ClientsServicesMock = new Mock<IClientsServices>();
-        _sut= new ClientsController(ClientsServicesMock.Object, _mapper.Object);        
+        _clientsServicesMock = new Mock<IClientsServices>();
+        _sut= new ClientsController(_clientsServicesMock.Object, _mapper.Object);        
     }
 
     [Test]
     public void AddClient_ValidRequestPassed_CreatedResultReceived()
     {
         //given
-        ClientsServicesMock.Setup(c => c.AddClient(It.IsAny<Client>()))
+        _clientsServicesMock.Setup(c => c.AddClient(It.IsAny<Client>()))
          .Returns(1);
 
         var client = new ClientRegisterRequest()
@@ -52,13 +53,8 @@ public class ClientsControllerTests
         Assert.AreEqual(StatusCodes.Status201Created, actualResult.StatusCode);
         Assert.True((int)actualResult.Value == 1);
 
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Once);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClients(),  Times.Never);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
+        _clientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Once);
+        
     }
 
 
@@ -75,8 +71,11 @@ public class ClientsControllerTests
             Email = "Va@gmail.com",
             Password = "12345678dad",
             PhoneNumber = "89119856375",
-        }; 
-        ClientsServicesMock.Setup(o => o.GetClientById(expectedClient.Id, _identities)).Returns(expectedClient);
+        };
+
+        //_claim = new() { Email = expectedClient.Email, Role = "Client" };
+
+        _clientsServicesMock.Setup(o => o.GetClientById(expectedClient.Id, _claim)).Returns(expectedClient);
 
 
         //when
@@ -87,13 +86,8 @@ public class ClientsControllerTests
 
         
         Assert.AreEqual(StatusCodes.Status200OK, actualResult.StatusCode);
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
-        ClientsServicesMock.Verify(c => c.GetClients(), Times.Never);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
+        _clientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<ClaimModel>()), Times.Once);
+
 
     }
 
@@ -119,7 +113,7 @@ public class ClientsControllerTests
             LastName = "Sobakov",
         };
 
-        ClientsServicesMock.Setup(o => o.UpdateClient(client, client.Id, _identities));
+        _clientsServicesMock.Setup(o => o.UpdateClient(client, client.Id, _claim));
 
 
         //when
@@ -129,13 +123,9 @@ public class ClientsControllerTests
         var actualResult = actual as NoContentResult;
 
         Assert.AreEqual(StatusCodes.Status204NoContent, actualResult.StatusCode);
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClients(), Times.Never);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
+
+        _clientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<ClaimModel>()), Times.Once);
+
 
     }
 
@@ -166,7 +156,7 @@ public class ClientsControllerTests
         };
 
 
-        ClientsServicesMock.Setup(o => o.GetCommentsByClientId(expectedClient.Id,_identities)).Returns(expectedClient.Comments);
+        _clientsServicesMock.Setup(o => o.GetCommentsByClientId(expectedClient.Id, _claim)).Returns(expectedClient.Comments);
 
         //when
         var actual = _sut.GetCommentsByClientId(expectedClient.Id);
@@ -175,13 +165,7 @@ public class ClientsControllerTests
         var actualResult = actual.Result as ObjectResult;
 
         Assert.AreEqual(StatusCodes.Status200OK, actualResult.StatusCode);
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClients(), Times.Never);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
+        _clientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<ClaimModel>()), Times.Once);
     }
 
 
@@ -212,7 +196,7 @@ public class ClientsControllerTests
 
         };
 
-        ClientsServicesMock.Setup(o => o.GetOrdersByClientId(expectedClient.Id, _identities)).Returns(expectedClient.Orders);
+        _clientsServicesMock.Setup(o => o.GetOrdersByClientId(expectedClient.Id, _claim)).Returns(expectedClient.Orders);
 
         //when
         var actual = _sut.GetOrdersByClientId(expectedClient.Id);
@@ -221,13 +205,8 @@ public class ClientsControllerTests
         var actualResult = actual.Result as ObjectResult;
 
         Assert.AreEqual(StatusCodes.Status200OK, actualResult.StatusCode);
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClients(), Times.Never);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
+        _clientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<ClaimModel>()), Times.Once);
+
     }
 
     [Test]
@@ -246,7 +225,7 @@ public class ClientsControllerTests
 
         };
 
-        ClientsServicesMock.Setup(o => o.GetClientById(expectedClient.Id, _identities)).Returns(expectedClient);
+        _clientsServicesMock.Setup(o => o.GetClientById(expectedClient.Id, _claim)).Returns(expectedClient);
 
         //when
         var actual = _sut.DeleteClientById(expectedClient.Id);
@@ -255,13 +234,8 @@ public class ClientsControllerTests
         var actualResult = actual as NoContentResult;
 
         Assert.AreEqual(StatusCodes.Status204NoContent, actualResult.StatusCode);
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Once);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClients(), Times.Never);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
+        _clientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<ClaimModel>()), Times.Once);
+
 
     }
 
@@ -299,7 +273,7 @@ public class ClientsControllerTests
         };
         
 
-        ClientsServicesMock.Setup(o => o.GetClients()).Returns(clients).Verifiable();
+        _clientsServicesMock.Setup(o => o.GetClients()).Returns(clients).Verifiable();
 
         //when
         var actual = _sut.GetClients();
@@ -308,13 +282,8 @@ public class ClientsControllerTests
         var actualResult = actual.Result as ObjectResult;
 
         Assert.AreEqual(StatusCodes.Status200OK, actualResult.StatusCode);
-        ClientsServicesMock.Verify(c => c.AddClient(It.IsAny<Client>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.DeleteClient(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClientById(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetClients(), Times.Once);
-        ClientsServicesMock.Verify(c => c.UpdateClient(It.IsAny<Client>(), It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetOrdersByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
-        ClientsServicesMock.Verify(c => c.GetCommentsByClientId(It.IsAny<int>(), It.IsAny<List<Claim>>()), Times.Never);
+        _clientsServicesMock.Verify(c => c.GetClients(), Times.Once);
+
 
     }
 

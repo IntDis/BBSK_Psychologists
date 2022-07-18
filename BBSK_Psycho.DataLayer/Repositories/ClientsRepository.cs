@@ -14,6 +14,8 @@ public class ClientsRepository : IClientsRepository
 
     public Client? GetClientById(int id) => _context.Clients.FirstOrDefault(c => c.Id == id);
 
+    public Client? GetClientByEmail(string email) => _context.Clients.FirstOrDefault(c => c.Email == email);
+
     public List<Client> GetClients() => _context.Clients
         .Where(c => c.IsDeleted== false)
         .AsNoTracking()
