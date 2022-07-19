@@ -4,6 +4,7 @@ using BBSK_Psycho.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBSK_Psycho.DataLayer.Migrations
 {
     [DbContext(typeof(BBSK_PsychoContext))]
-    partial class BBSK_PsychoContextModelSnapshot : ModelSnapshot
+    [Migration("20220719115931_AdddefaultDateinClientRegistrationDate")]
+    partial class AdddefaultDateinClientRegistrationDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

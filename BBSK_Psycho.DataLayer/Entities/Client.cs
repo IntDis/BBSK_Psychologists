@@ -15,17 +15,7 @@ public class Client
     public string Password { get; set; }
     public string? PhoneNumber { get; set; }
     public DateTime? BirthDate { get; set; }
-
-    public DateTime RegistrationDate
-    {
-        get
-        {
-            return DateTime.Now;
-        }
-        set { }
-       
-    }
-
+    public DateTime RegistrationDate { get; set; }
     public bool IsDeleted { get; set; }
  
 

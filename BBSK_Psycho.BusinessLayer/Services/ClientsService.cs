@@ -92,13 +92,7 @@ public class ClientsService : IClientsServices
         {
             throw new UniquenessException($"That email is registred");
         }
-        if(client.PhoneNumber is not null)
-        {
-            if (!(client.PhoneNumber.StartsWith("+7") || client.PhoneNumber.StartsWith("8") && client.PhoneNumber.Length <= 11))
-            {
-                throw new DataException($"Invalid phone number");
-            }
-        }
+        
         if (client.BirthDate>DateTime.Now)
         {
             throw new DataException($"Invalid birthday");
