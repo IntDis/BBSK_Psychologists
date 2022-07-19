@@ -4,6 +4,7 @@ using BBSK_Psycho.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBSK_Psycho.DataLayer.Migrations
 {
     [DbContext(typeof(BBSK_PsychoContext))]
-    partial class BBSK_PsychoContextModelSnapshot : ModelSnapshot
+    [Migration("20220709182902_Rename")]
+    partial class Rename
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,56 +23,6 @@ namespace BBSK_Psycho.DataLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.ApplicationForPsychologistSearch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("CostMax")
-                        .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
-
-                    b.Property<decimal>("CostMin")
-                        .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<int>("PsychologistGender")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Time")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("ApplicationForPsychologistSearch", (string)null);
-                });
 
             modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.Client", b =>
                 {
@@ -105,14 +57,8 @@ namespace BBSK_Psycho.DataLayer.Migrations
                         .HasMaxLength(140)
                         .HasColumnType("nvarchar(140)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
                     b.Property<DateTime>("RegistrationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -383,7 +329,7 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
                     b.HasIndex("PsychologistsId");
 
-                    b.ToTable("ProblemPsychologist", (string)null);
+                    b.ToTable("ProblemPsychologist");
                 });
 
             modelBuilder.Entity("PsychologistTherapyMethod", b =>
@@ -398,18 +344,7 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
                     b.HasIndex("TherapyMethodsId");
 
-                    b.ToTable("PsychologistTherapyMethod", (string)null);
-                });
-
-            modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.ApplicationForPsychologistSearch", b =>
-                {
-                    b.HasOne("BBSK_Psycho.DataLayer.Entities.Client", "Client")
-                        .WithMany("ApplicationForPsychologistSearch")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
+                    b.ToTable("PsychologistTherapyMethod");
                 });
 
             modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.Comment", b =>
@@ -504,8 +439,6 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
             modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.Client", b =>
                 {
-                    b.Navigation("ApplicationForPsychologistSearch");
-
                     b.Navigation("Comments");
 
                     b.Navigation("Orders");

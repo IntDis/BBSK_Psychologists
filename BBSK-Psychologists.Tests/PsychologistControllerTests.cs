@@ -9,11 +9,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BBSK_Psycho.DataLayer.Repositories;
+using Moq;
+using BBSK_Psycho.DataLayer.Entities;
 
 namespace BBSK_Psychologists.Tests
 {
     public class PsychologistControllerTests
-{
+{       
+        private Mock <IPsychologistsRepository> _repository;
+
         private PsychologistsController _sut;
         private AddPsychologistRequest psychologistDataAdd = new AddPsychologistRequest
         {
@@ -56,7 +61,8 @@ namespace BBSK_Psychologists.Tests
         [SetUp]
         public void Setup()
         {
-            _sut = new PsychologistsController();
+            _repository = new Mock<IPsychologistsRepository>();
+            _sut = new PsychologistsController(_repository.Object);
         }
 
         [Test]
@@ -103,12 +109,18 @@ namespace BBSK_Psychologists.Tests
         [Test]
         public void GetPsychologist_ObjectResultPassed()
         {
+            //_repository.Setup(r => r.GetPsychologist(It.IsAny<int>()))
+            //.Returns(new Psychologist());   
             var clientId = 1;
+
+            _repository.Setup(r => r.GetPsychologist(clientId)).Returns(new Psychologist());
             // when
 
             var actual = _sut.GetPsychologist(clientId);
 
             // then
+
+            _repository.Verify(r => r.GetPsychologist(It.IsAny<int>()), Times.Once);
             var actualResult = actual.Result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, actualResult.StatusCode);
 

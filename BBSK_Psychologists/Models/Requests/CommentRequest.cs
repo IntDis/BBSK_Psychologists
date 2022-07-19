@@ -6,7 +6,6 @@ namespace BBSK_Psycho.Models.Requests
 {
     public class CommentRequest
     {
-        
         public int ClientId { get; set; }
 
         public int PsychologistId { get; set; }

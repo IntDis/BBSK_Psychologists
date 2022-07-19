@@ -1,7 +1,13 @@
-﻿
-namespace BBSK_Psycho.BusinessLayer.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class EntityNotFoundException : Exception
+namespace BBSK_Psycho.BusinessLayer.Exceptions
 {
-    public EntityNotFoundException(string message) : base(message) { }
+    public class EntityNotFoundException: Exception
+    {
+        public EntityNotFoundException(string message) : base(message) { }
+    }
 }

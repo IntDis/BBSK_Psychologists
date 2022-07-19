@@ -4,6 +4,7 @@ using BBSK_Psycho.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBSK_Psycho.DataLayer.Migrations
 {
     [DbContext(typeof(BBSK_PsychoContext))]
-    partial class BBSK_PsychoContextModelSnapshot : ModelSnapshot
+    [Migration("20220710141357_AddEntityApplication")]
+    partial class AddEntityApplication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,14 +107,8 @@ namespace BBSK_Psycho.DataLayer.Migrations
                         .HasMaxLength(140)
                         .HasColumnType("nvarchar(140)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
-
                     b.Property<DateTime>("RegistrationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -383,7 +379,7 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
                     b.HasIndex("PsychologistsId");
 
-                    b.ToTable("ProblemPsychologist", (string)null);
+                    b.ToTable("ProblemPsychologist");
                 });
 
             modelBuilder.Entity("PsychologistTherapyMethod", b =>
@@ -398,7 +394,7 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
                     b.HasIndex("TherapyMethodsId");
 
-                    b.ToTable("PsychologistTherapyMethod", (string)null);
+                    b.ToTable("PsychologistTherapyMethod");
                 });
 
             modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.ApplicationForPsychologistSearch", b =>
