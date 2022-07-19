@@ -24,9 +24,10 @@ public class ClientsService : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
+        if (!(((claims.Email == (string)client.Email
+            || claims.Role == Role.Manager.ToString()) 
+            && claims.Role != Role.Psychologist.ToString()) && claims is not null))
         {
-
             throw new AccessException($"Access denied");
         }
         else
@@ -45,47 +46,48 @@ public class ClientsService : IClientsServices
     public List<Comment> GetCommentsByClientId(int id, ClaimModel claims)
     {
         var client = _clientsRepository.GetClientById(id);
-        var comments = _clientsRepository.GetCommentsByClientId(id);
+
         
         if (client == null )
         {
             throw new EntityNotFoundException($"Client { id } not found");
         }
-       
-        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
+
+        if (!(((claims.Email == (string)client.Email
+            || claims.Role == Role.Manager.ToString())
+            && claims.Role != Role.Psychologist.ToString()) && claims is not null))
         {
-
             throw new AccessException($"Access denied");
-
         }
-        return comments;
+
+        else
+            return _clientsRepository.GetCommentsByClientId(id);
     }
 
 
     public List<Order> GetOrdersByClientId(int id, ClaimModel claims)
     {
         var client = _clientsRepository.GetClientById(id);
-        var orders = _clientsRepository.GetOrdersByClientId(id);
-
 
         if (client == null)
         {
             throw new EntityNotFoundException($"Orders by client {id} not found");
         }
-        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
+        if (!(((claims.Email == (string)client.Email
+            || claims.Role == Role.Manager.ToString())
+            && claims.Role != Role.Psychologist.ToString()) && claims is not null))
         {
-
             throw new AccessException($"Access denied");
-
         }
+
         else
-            return orders;
+            return _clientsRepository.GetOrdersByClientId(id);
     }
 
     public int AddClient(Client client)
     {
 
-        var isChecked = CheckingEmailForUniqueness(client.Email);
+        var isChecked = CheckEmailForUniqueness(client.Email);
 
 
         if (!isChecked)
@@ -93,10 +95,6 @@ public class ClientsService : IClientsServices
             throw new UniquenessException($"That email is registred");
         }
         
-        if (client.BirthDate>DateTime.Now)
-        {
-            throw new DataException($"Invalid birthday");
-        }
         else
              return _clientsRepository.AddClient(client);
 
@@ -111,11 +109,11 @@ public class ClientsService : IClientsServices
         {
             throw new EntityNotFoundException($"Client {id} not found");
         }
-        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
+        if (!(((claims.Email == (string)client.Email
+            || claims.Role == Role.Manager.ToString())
+            && claims.Role != Role.Psychologist.ToString()) && claims is not null))
         {
-
             throw new AccessException($"Access denied");
-
         }
         else
             _clientsRepository.UpdateClient(newClientModel, id);
@@ -132,11 +130,11 @@ public class ClientsService : IClientsServices
             throw new EntityNotFoundException($"Client {id} not found");
         }
 
-        if ((claims.Email != (string)client.Email && claims.Role != Role.Manager.ToString()) || claims is null)
+        if (!(((claims.Email == (string)client.Email
+             || claims.Role == Role.Manager.ToString())
+             && claims.Role != Role.Psychologist.ToString()) && claims is not null))
         {
-
             throw new AccessException($"Access denied");
-            
         }
         else
             _clientsRepository.DeleteClient(id);
@@ -144,7 +142,7 @@ public class ClientsService : IClientsServices
     }
 
 
-    private bool CheckingEmailForUniqueness(string email) => _clientsRepository.GetClientByEmail(email) == null;
+    private bool CheckEmailForUniqueness(string email) => _clientsRepository.GetClientByEmail(email) == null;
 
 
 }

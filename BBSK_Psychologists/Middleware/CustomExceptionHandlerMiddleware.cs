@@ -7,11 +7,11 @@ using System.Text.Json;
 
 namespace BBSK_Psycho.Middleware;
 
-public class CustomExeptionHandlerMiddleware
+public class CustomExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public CustomExeptionHandlerMiddleware(RequestDelegate next) =>
+    public CustomExceptionHandlerMiddleware(RequestDelegate next) =>
         _next = next;
 
     public async Task Invoke(HttpContext context)
@@ -40,7 +40,7 @@ public class CustomExeptionHandlerMiddleware
 
     }
 
-    private Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private Task HandleExceptionAsync(HttpContext context, Exception exception) // bad version, doing merge change to new version
     {
         var code = HttpStatusCode.InternalServerError;
         var result = string.Empty;

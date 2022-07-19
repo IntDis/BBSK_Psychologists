@@ -22,7 +22,7 @@ public class ClientRegisterRequest
     public string Email { get; set; }
 
 
-    [MaxLength(12, ErrorMessage = ApiErrorMessage.LengthExceeded)]
+    [PhoneCheker]
     public string? PhoneNumber { get; set; }
 
     [ClientBirthDate]

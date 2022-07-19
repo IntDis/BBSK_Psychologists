@@ -73,6 +73,22 @@ public class ClientRegisterRequestNegativeTestsSource : IEnumerable
              clientRegisterRequest,
              ApiErrorMessage.LengthExceeded
         };
+
+        clientRegisterRequest = GetClientRegisterProperModelForTest();
+        clientRegisterRequest.PhoneNumber = "3911911118696";
+        yield return new object[]
+        {
+             clientRegisterRequest,
+             ApiErrorMessage.InvalidPhoneNumber
+        };
+
+        clientRegisterRequest = GetClientRegisterProperModelForTest();
+        clientRegisterRequest.BirthDate = new DateTime(3020,02,02);
+        yield return new object[]
+        {
+             clientRegisterRequest,
+             ApiErrorMessage.InvalidDate
+        };
     }
 
 }
