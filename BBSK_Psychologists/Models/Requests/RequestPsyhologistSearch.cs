@@ -5,7 +5,7 @@ using BBSK_Psycho.DataLayer.Enums;
 
 namespace BBSK_Psycho.Models
 {
-    public class ApplicationForPsychologistSearch
+    public class RequestPsyhologistSearch
     {
         [Required(ErrorMessage = ApiErrorMessage.NameIsRequired)]
         public string Name { get; set; }

@@ -22,5 +22,4 @@ public class Client
 
     public List<Order> Orders { get; set; }
     public List<Comment> Comments { get; set; }
-    public List <ApplicationForPsychologistSearch> ApplicationForPsychologistSearch { get; set; }
 }

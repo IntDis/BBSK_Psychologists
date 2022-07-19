@@ -1,10 +1,11 @@
-﻿namespace BBSK_Psycho.Middleware
+﻿using Microsoft.AspNetCore.Builder;
+
+namespace BBSK_Psycho.Middleware;
+
+public static class CustomExeptionHandlerMiddlewareExtensions
 {
-    public static class CustomExceptionHandlerMiddlewareExtensions
+    public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder)
     {
-        public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<CustomExceptionHandlerMiddleware>();
-        }
+        return builder.UseMiddleware<CustomExeptionHandlerMiddleware>();
     }
 }
