@@ -42,7 +42,7 @@ namespace BBSK_Psycho.Models.Requests
         public string PasportData { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.EducationIsRequired)]
-        public List<string> Education { get; set; }  // "2013 - Московский Государственный Университет - Факультет - Степень; Dev Education"
+        public List<string> Educations { get; set; }  // "2013 - Московский Государственный Университет - Факультет - Степень; Dev Education"
 
         [Required()]
         public CheckStatus CheckStatus { get; set; }        //Enum

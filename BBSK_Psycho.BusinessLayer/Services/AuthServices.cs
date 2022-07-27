@@ -81,13 +81,20 @@ public class AuthServices : IAuthServices
 
     public string GetToken(ClaimModel model)
     {
-        if(model is null|| model.Email is null || model.Role is null)
+        if (model is null || model.Email is null || model.Role is null)
         {
             throw new DataException("Object or part of it is empty");
         }
 
-        var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Email), { new Claim(ClaimTypes.Role, model.Role) } };
-
+        var claims = new List<Claim>
+        {
+            { new Claim(ClaimTypes.Name, model.Email) },
+            { new Claim(ClaimTypes.Role, model.Role) },
+            { new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()) }
+        };
+            
+            
+    
         var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.Issuer,
                 audience: AuthOptions.Audience,

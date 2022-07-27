@@ -9,7 +9,7 @@ namespace BBSK_Psycho.Models.Requests
 {
     public class AddPsychologistRequest
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         [Required(ErrorMessage = ApiErrorMessage.NameIsRequired)]
         public string Name { get; set; }
 
@@ -20,7 +20,7 @@ namespace BBSK_Psycho.Models.Requests
         public string Patronymic { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.PsychologistGenderIsRequired)]
-        public Gender? gender { get; set; }
+        public Gender? Gender { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.BirthDateIsRequired)]
         public DateTime? BirthDate { get; set; }
@@ -42,11 +42,11 @@ namespace BBSK_Psycho.Models.Requests
         public string PasportData { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.EducationIsRequired)]
-        public List<string>? Education { get; set; }
+        public List<string>? Educations { get; set; }
         
         // "2013 - Московский Государственный Университет - Факультет - Степень; Dev Education"
         [Required()]
-        public  CheckStatus checkStatus{ get; set; }
+        public  CheckStatus CheckStatus{ get; set; }
         [Required(ErrorMessage = ApiErrorMessage.TherapyMethodsIsRequired)]
         public List<string>? TherapyMethods { get; set; }
         [Required(ErrorMessage = ApiErrorMessage.ProblemsIsRequired)]

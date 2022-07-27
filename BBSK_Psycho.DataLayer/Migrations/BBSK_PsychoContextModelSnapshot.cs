@@ -409,7 +409,7 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
                     b.HasIndex("PsychologistsId");
 
-                    b.ToTable("ProblemPsychologist");
+                    b.ToTable("ProblemPsychologist", (string)null);
                 });
 
             modelBuilder.Entity("PsychologistTherapyMethod", b =>
@@ -424,7 +424,7 @@ namespace BBSK_Psycho.DataLayer.Migrations
 
                     b.HasIndex("TherapyMethodsId");
 
-                    b.ToTable("PsychologistTherapyMethod");
+                    b.ToTable("PsychologistTherapyMethod", (string)null);
                 });
 
             modelBuilder.Entity("BBSK_Psycho.DataLayer.Entities.ApplicationForPsychologistSearch", b =>

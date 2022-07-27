@@ -16,7 +16,7 @@ namespace BBSK_Psychologists.Tests.ModelControllerSource
                 Patronymic = "ПВАПВА",
                 Gender = Gender.Male,
                 Phone = "85884859",
-                Education = new List<string> { "2013 - воврварараар; Dev Education", "sg osgj sopj r" },
+                Educations = new List<string> { "2013 - воврварараар; Dev Education", "sg osgj sopj r" },
                 CheckStatus = CheckStatus.Completed,
                 Email = "rosgdsfg@fja.com",
                 PasportData = "23146456",
@@ -91,7 +91,7 @@ namespace BBSK_Psychologists.Tests.ModelControllerSource
             };
 
             var requestWithRequiredEducation = ReturnModelOfUpdate();
-            requestWithRequiredEducation.Education = null;
+            requestWithRequiredEducation.Educations = null;
             yield return new object[]
             {
             requestWithRequiredEducation,

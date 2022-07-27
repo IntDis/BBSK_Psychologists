@@ -19,10 +19,10 @@ namespace BBSK_Psychologists.Tests
                 Name = "лял",
                 LastName = "пвфа",
                 Patronymic = "ПВАПВА",
-                gender = Gender.Male,
+                Gender = Gender.Male,
                 Phone = "85884859",
-                Education = new List<string> { "2013 - воврварараар; Dev Education", "sg osgj sopj r" },
-                checkStatus = CheckStatus.Completed,
+                Educations = new List<string> { "2013 - воврварараар; Dev Education", "sg osgj sopj r" },
+                CheckStatus = CheckStatus.Completed,
                 Email = "rosgdsfg@fja.com",
                 PasportData = "23146456",
                 Price = 2000,
@@ -95,7 +95,7 @@ namespace BBSK_Psychologists.Tests
             };
 
             var requestWithRequiredEducationAdd = ReturnModelOfAdd();
-            requestWithRequiredEducationAdd.Education = null;
+            requestWithRequiredEducationAdd.Educations = null;
             yield return new object[]
             {
             requestWithRequiredEducationAdd,

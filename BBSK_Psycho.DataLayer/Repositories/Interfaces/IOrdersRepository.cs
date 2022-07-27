@@ -10,5 +10,6 @@ namespace BBSK_Psycho.DataLayer.Repositories.Interfaces
         List<Order> GetOrders();
         Order? GetOrderById(int id);
         void UpdateOrderStatus(int orderId, OrderStatus orderStatus, OrderPaymentStatus paymentStatus);
+        Order? GetOrderByPsychIdAndClientId(int psychId, int clientId);
     }
 }

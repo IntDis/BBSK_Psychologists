@@ -167,9 +167,9 @@ namespace BBSK_Psycho.BusinessLayer.Tests
 
 
 
-        [TestCase("Client")]
-        [TestCase("Manager")]
-        public void GetClientById_ValidRequestPassed_ClientReceived(string role)
+        [TestCase("Client", "Va@gmail.com")]
+        [TestCase("Manager",null)]
+        public void GetClientById_ValidRequestPassed_ClientReceived(string role,string? email)
         {
 
             //given
@@ -178,16 +178,10 @@ namespace BBSK_Psycho.BusinessLayer.Tests
                 Id = 1,
                 Name = "Roma",
                 LastName = "Petrov",
-                Email = "Va@gmail.com",
+                Email = email!,
                 Password = "12345678dad",
                 PhoneNumber = "89119856375",
             };
-
-
-            if (role == "Manager")
-            {
-                clientInDb.Email = null;
-            }
 
             _claims = new() { Email = clientInDb.Email, Role = role };
 
@@ -208,7 +202,6 @@ namespace BBSK_Psycho.BusinessLayer.Tests
             Assert.True(actual.PhoneNumber == clientInDb.PhoneNumber);
             Assert.True(actual.IsDeleted == false);
             _clientsRepositoryMock.Verify(c => c.GetClientById(It.IsAny<int>()), Times.Once);
-
         }
 
 

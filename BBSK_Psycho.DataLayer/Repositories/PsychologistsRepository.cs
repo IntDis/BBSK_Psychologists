@@ -30,6 +30,7 @@ namespace BBSK_Psycho.DataLayer.Repositories
 
         public Psychologist? GetPsychologistByEmail(string email) => _context.Psychologists.FirstOrDefault(p => p.Email == email);
 
+        public List<Order> GetOrdersByPsychologistsId(int id) => _context.Orders.Where(p => p.Psychologist.Id == id && !p.IsDeleted).ToList();
         public List<Comment> GetCommentsByPsychologistId(int id) => _context.Comments.Where(с => с.IsDeleted == false).ToList();
 
         public int AddPsychologist (Psychologist psychologist)

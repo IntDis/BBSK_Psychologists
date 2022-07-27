@@ -18,6 +18,7 @@ namespace BBSK_Psycho.Extensions
                 var claims = controller.User.Claims.ToList();
                 claimModel.Email = claims[0].Value;
                 claimModel.Role = claims[1].Value;
+                claimModel.Id = Convert.ToInt32(claims[2].Value);
             }
 
             return claimModel;
