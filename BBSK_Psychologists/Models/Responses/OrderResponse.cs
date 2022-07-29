@@ -1,15 +1,13 @@
 using System;
 using BBSK_Psycho.DataLayer.Enums;
-using BBSK_Psycho.Models.Responses;
 
-namespace BBSK_Psycho.Models
+namespace BBSK_Psycho.Models.Responses
+
 {
 
     public class OrderResponse
     {
         public int Id { get; set; }
-
-        //public int PsychologistId { get; set; }  // PsyResponse
 
         public PsychologistResponse psychologistResponse { get; set; }
 

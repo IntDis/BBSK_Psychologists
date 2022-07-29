@@ -2,7 +2,7 @@
 using BBSK_Psycho.DataLayer.Entities;
 using System.Security.Claims;
 
-namespace BBSK_Psycho.BusinessLayer.Services;
+namespace BBSK_Psycho.BusinessLayer.Services.Interfaces;
 
 public interface IClientsServices
 {

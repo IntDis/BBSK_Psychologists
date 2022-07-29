@@ -63,14 +63,8 @@ namespace BBSK_DataLayer.Tests
             //then
 
             Assert.NotNull(expectedOrders);
-            CollectionAssert.AreEqual(actualOrders, expectedOrders);
-
-            Assert.That(expectedOrders, Contains.Item(firstOrder));
-            Assert.That(expectedOrders, Contains.Item(secondOrder));
             Assert.That(expectedOrders, Does.Not.Contains(thirdOrder));
 
-            Assert.AreEqual(expectedOrders[0], actualOrders[0]);
-            Assert.AreEqual(expectedOrders[1], actualOrders[1]);
             Assert.That(!expectedOrders[0].IsDeleted);
             Assert.That(!expectedOrders[1].IsDeleted);
         }
@@ -138,7 +132,7 @@ namespace BBSK_DataLayer.Tests
             _context.SaveChanges();
 
             //when
-            _sut.UpdateOrderStatus(givenOrder.Id, OrderStatus.Completed, OrderPaymentStatus.Paid);
+            _sut.UpdateOrderStatuses(givenOrder.Id, OrderStatus.Completed, OrderPaymentStatus.Paid);
 
             Order expectedOrder = _context.Orders.FirstOrDefault(o => o.Id == givenOrder.Id);
 

@@ -16,11 +16,13 @@ public class AuthServices : IAuthServices
     private readonly IPsychologistsRepository _psychologistsRepository;
     private readonly IManagerRepository _managerRepository;
 
-    public AuthServices(IClientsRepository clientsRepository, IPsychologistsRepository psychologistsRepository, IManagerRepository managerRepository)
+    public AuthServices(IClientsRepository clientsRepository, 
+                        IPsychologistsRepository psychologistsRepository, 
+                        IManagerRepository managerRepository)
     {
         _clientsRepository = clientsRepository;
         _psychologistsRepository = psychologistsRepository;
-        _managerRepository=managerRepository;
+        _managerRepository = managerRepository;
     }
 
     
@@ -36,7 +38,6 @@ public class AuthServices : IAuthServices
         {
             claimModel.Email = email;
             claimModel.Role = Role.Manager;
-
         }
         else
         {
@@ -65,13 +66,11 @@ public class AuthServices : IAuthServices
                 {
                     claimModel.Email = user.Email;
                     claimModel.Role = client != null ? Role.Client : Role.Psychologist;
-
-                
-                claimModel.Id = user.Id;
+                    claimModel.Id = user.Id; 
                 }
             }
-
         }
+
         if (claimModel is null)
         {
             throw new EntityNotFoundException("Invalid  password");
@@ -82,13 +81,14 @@ public class AuthServices : IAuthServices
 
     public string GetToken(ClaimModel model)
     {
-        if(model is null|| model.Email is null )
+        if(model is null || model.Email is null)
         {
-            throw new DataException("Object or part of it is empty");
+            throw new Exceptions.DataException("Object or part of it is empty");
         }
 
-        var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Email), 
-            { new Claim(ClaimTypes.Role, model.Role.ToString()) }, 
+        var claims = new List<Claim> { 
+              new Claim(ClaimTypes.Name, model.Email),
+            { new Claim(ClaimTypes.Role, model.Role.ToString()) },
             { new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()) } };
 
         var jwt = new JwtSecurityToken(

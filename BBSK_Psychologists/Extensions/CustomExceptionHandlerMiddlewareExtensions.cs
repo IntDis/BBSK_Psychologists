@@ -1,4 +1,6 @@
-﻿namespace BBSK_Psycho.Middleware
+﻿using BBSK_Psycho.Middleware;
+
+namespace BBSK_Psycho.Extensions
 {
     public static class CustomExceptionHandlerMiddlewareExtensions
     {

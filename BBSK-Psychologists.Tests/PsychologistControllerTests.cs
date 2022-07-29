@@ -14,12 +14,13 @@ using System.Threading.Tasks;
 using BBSK_Psycho.DataLayer.Repositories;
 using Moq;
 using BBSK_Psycho.DataLayer.Entities;
+using BBSK_Psycho.DataLayer.Repositories.Interfaces;
 
 namespace BBSK_Psychologists.Tests
 {
     public class PsychologistControllerTests
 {       
-        private Mock <IPsychologistsRepository> _repository;
+        private Mock<IPsychologistsRepository> _repository;
 
         private PsychologistsController _sut;
         private AddPsychologistRequest psychologistDataAdd = new AddPsychologistRequest

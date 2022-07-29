@@ -1,4 +1,5 @@
 ﻿using BBSK_Psycho.DataLayer.Entities;
+using BBSK_Psycho.DataLayer.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

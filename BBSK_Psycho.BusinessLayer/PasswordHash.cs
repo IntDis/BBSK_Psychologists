@@ -51,6 +51,4 @@ public class PasswordHash
         pbkdf2.IterationCount = iterations;
         return pbkdf2.GetBytes(outputBytes);
     }
-
-    
 }

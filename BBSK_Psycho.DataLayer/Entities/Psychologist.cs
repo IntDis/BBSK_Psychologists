@@ -31,6 +31,5 @@ namespace BBSK_Psycho.DataLayer.Entities
         public List<TherapyMethod> TherapyMethods { get; set; }
         public List<Problem> Problems { get; set; }
         public List<Education> Educations { get; set; }
-
     }
 }

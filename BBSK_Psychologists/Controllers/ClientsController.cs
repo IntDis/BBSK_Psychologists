@@ -1,6 +1,7 @@
 using AutoMapper;
 using BBSK_Psycho.BusinessLayer;
 using BBSK_Psycho.BusinessLayer.Services;
+using BBSK_Psycho.BusinessLayer.Services.Interfaces;
 using BBSK_Psycho.DataLayer.Entities;
 using BBSK_Psycho.DataLayer.Enums;
 using BBSK_Psycho.DataLayer.Repositories;
@@ -139,8 +140,6 @@ namespace BBSK_Psycho.Controllers
         {
             var clients = _clientsServices.GetClients();
             return Ok(_mapper.Map<List<ClientResponse>>(clients));
-
-
         }
 
         [AuthorizeByRole(Role.Client)]

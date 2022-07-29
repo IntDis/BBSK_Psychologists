@@ -24,7 +24,6 @@ namespace BBSK_Psycho.Models
         public DateTime OrderDate { get; set; }
 
         public DateTime? PayDate { get; set; }
-
         public OrderStatus OrderStatus { get; set; }
 
         [Required(ErrorMessage = ApiErrorMessage.OrderPaymentStatusIsRequired)]

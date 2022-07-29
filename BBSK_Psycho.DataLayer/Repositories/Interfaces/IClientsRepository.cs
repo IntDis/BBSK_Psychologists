@@ -1,6 +1,6 @@
 ﻿using BBSK_Psycho.DataLayer.Entities;
 
-namespace BBSK_Psycho.DataLayer.Repositories;
+namespace BBSK_Psycho.DataLayer.Repositories.Interfaces;
 
 public interface IClientsRepository
 {

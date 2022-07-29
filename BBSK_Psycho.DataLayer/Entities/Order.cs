@@ -6,7 +6,7 @@ public class Order
 {
     public int Id { get; set; } 
     public decimal Cost { get; set; }
-    public int Duration { get; set; }
+    public SessionDuration Duration { get; set; }
     public string Message { get; set; }
     public DateTime SessionDate { get; set; }
     public DateTime OrderDate { get; set; }

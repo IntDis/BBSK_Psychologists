@@ -201,7 +201,7 @@ namespace BBSK_Psycho.BusinessLayer.Tests
             var model = new ClaimModel()
             {
                 Email = null,
-                Role =Role.Client
+                Role = Role.Client
             };
 
             //when, then

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using BBSK_Psycho.DataLayer.Repositories;
 using BBSK_Psycho.DataLayer.Entities;
 using BBSK_Psycho.BusinessLayer.Exceptions;
+using BBSK_Psycho.DataLayer.Repositories.Interfaces;
 
 namespace BBSK_Psycho.Controllers
 {
