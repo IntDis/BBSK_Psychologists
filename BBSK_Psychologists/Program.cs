@@ -12,9 +12,12 @@ using BBSK_Psycho.BusinessLayer.Services;
 using BBSK_Psycho.BusinessLayer.Infrastructure;
 using BBSK_Psycho.DataLayer.Repositories.Interfaces;
 using BBSK_Psycho.Controllers;
+using BBSK_Psycho.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigurationManager configuration = builder.Configuration;
+IWebHostEnvironment environment = builder.Environment;
 
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
@@ -57,9 +60,12 @@ builder.Services.AddSwaggerGen(options =>
                });
 });
 
+var connString = new ConnectionOptions();
+builder.Configuration.Bind(connString);
+
 builder.Services.AddDbContext <BBSK_PsychoContext> (o =>
 {
-    o.UseSqlServer(@"Server=80.78.240.16;Database=BBSK_PsychoDb4;User Id=Student;Password=qwe!23");
+    o.UseSqlServer(connString.BBSK_PSYCHO_CONNECTION_STRING);
 
 });
 
